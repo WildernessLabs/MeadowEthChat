@@ -6,7 +6,6 @@ using System.Threading;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace MeadowChat
 {
     class ChatManager
@@ -14,15 +13,18 @@ namespace MeadowChat
         TcpClient tcpClient;
         ChatRecv _chatRecv;
         ChatSend _chatSend;
-
+        CircularBuffer _chatCirBuf;
         readonly int chatPort;
         readonly IPAddress chatIpAddress;
         NetworkStream chatStream;
         MeadowEthChatUi meadowChatUi;
-        
+
+        internal AutoResetEvent sendMoreDataEvent = new AutoResetEvent(false);
+
         public TcpClient TcpClient { get => tcpClient; set => tcpClient = value; }
         internal ChatRecv ChatRecv { get => _chatRecv; set => _chatRecv = value; }
         internal ChatSend ChatSend { get => _chatSend; set => _chatSend = value; }
+        internal CircularBuffer ChatCirBuf { get => _chatCirBuf; set => _chatCirBuf = value; }
         public NetworkStream ChatStream { get => chatStream; set => chatStream = value; }
 
         // Ctor
@@ -34,14 +36,18 @@ namespace MeadowChat
             chatIpAddress = IPAddress.Parse(this.meadowChatUi.ReadMeadowIp());
 
             tcpClient = new TcpClient(AddressFamily.InterNetwork);
-            //tcpClient = new TcpClient(chatIpAddress.ToString(), chatPort);
 
             _chatRecv = new ChatRecv(this, this.meadowChatUi);
             _chatSend = new ChatSend(this, this.meadowChatUi);
+            _chatCirBuf = new CircularBuffer();
         }
 
+        // Called when connect button clicked
         public async void StartChat()
         {
+            // Initialize receive buffer
+            _chatCirBuf.Init(65536);
+
             while (true)
             {
                 try
@@ -59,7 +65,7 @@ namespace MeadowChat
                         Thread.Sleep(0);    // place for break point
                     }
 
-                    // Start receiving
+                    // Start receiving forever
                     await Task.Run(() => ChatRecv.ReceiveChatData(chatStream)).ConfigureAwait(false);
                 }
                 catch (SocketException sockex)
@@ -92,6 +98,5 @@ namespace MeadowChat
 
             //meadowChat.WriteStatusSafe($"Connection dropped receive loop");
         }
-
     }
 }

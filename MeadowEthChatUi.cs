@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,21 +16,26 @@ namespace MeadowChat
         private delegate void SafeCallDelegate(string text);
 
         ChatManager chatManager;
+        internal bool useRandomMsg;
+        internal byte[] sentDataBuffer;     // shared by xmit and recv
 
         public MeadowEthChatUi()
         {
             InitializeComponent();
 
             chatManager = new ChatManager(this);
+            useRandomMsg = false;
         }
 
         private void sendButton_Click(object sender, EventArgs e)
         {
-            WriteStatusSafe($"Sending '{sendTextBox.Text}'");
-            byte[] dataToSend = Encoding.UTF8.GetBytes(sendTextBox.Text);
-            _ = chatManager.ChatSend.SendMsgData(dataToSend, dataToSend.Length);
+            int sendCount = int.Parse(ReadSendCount());
+            chatManager.ChatSend.ClearPreSend();
+            chatManager.ChatRecv.ClearPreSend();
+            chatManager.ChatSend.PrepareAndSend(sendCount, sendTextBox.Text);
         }
 
+        //=====================================================
         private void connectButton_Click(object sender, EventArgs e)
         {
             chatManager.StartChat();
@@ -50,27 +56,17 @@ namespace MeadowChat
         }
 
         //=====================================================
+        // Read the number of times to send the message
+        internal string ReadSendCount()
+        {
+            return this.sendCountTextbox.Text;
+        }
+
+        //=====================================================
         // Read the Message To Send
         internal string ReadMessageToSend()
         {
             return this.sendTextBox.Text;
-        }
-
-        //=====================================================
-        // Safely write received data to textbox
-        internal void WriteReceiveSafe(string text)
-        {
-            if (recvTextBox.InvokeRequired)
-            {
-                var d = new SafeCallDelegate(WriteReceiveSafe);
-                recvTextBox.Invoke(d, new object[] { text });
-            }
-            else
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine($"{DateTime.Now:HH:mm:ss.fff}-{text}");
-                recvTextBox.AppendText(sb.ToString());
-            }
         }
 
         //=====================================================
@@ -119,6 +115,68 @@ namespace MeadowChat
         }
 
         //=====================================================
+        // Safely write verification matches count data to textbox
+        internal void WriteMatchCountSafe(string text)
+        {
+            if (matchCntTextBox.InvokeRequired)
+            {
+                var d = new SafeCallDelegate(WriteMatchCountSafe);
+                matchCntTextBox.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                matchCntTextBox.Text = text;
+            }
+        }
+
+        //=====================================================
+        // Safely write verification mismatches count data to textbox
+        internal void WriteMismatchCountSafe(string text)
+        {
+            if (mismatchCntTextBox.InvokeRequired)
+            {
+                var d = new SafeCallDelegate(WriteMismatchCountSafe);
+                mismatchCntTextBox.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                mismatchCntTextBox.Text = text;
+            }
+        }
+
+        //=====================================================
+        // Safely write verification mismatches count data to textbox
+        internal void WriteTotalExecTimeSafe(string text)
+        {
+            if (totalExecTimeTextBox.InvokeRequired)
+            {
+                var d = new SafeCallDelegate(WriteTotalExecTimeSafe);
+                totalExecTimeTextBox.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                totalExecTimeTextBox.Text = text;
+            }
+        }
+
+        //=====================================================
+        // Safely write received data to textbox
+        internal void WriteReceiveSafe(string text)
+        {
+            if (recvTextBox.InvokeRequired)
+            {
+                var d = new SafeCallDelegate(WriteReceiveSafe);
+                recvTextBox.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"{DateTime.Now:HH:mm:ss.fff}-{text}");
+                recvTextBox.AppendText(sb.ToString());
+            }
+        }
+
+        //=====================================================
         // Safely write status data to textbox
         internal void WriteStatusSafe(string text)
         {
@@ -132,6 +190,20 @@ namespace MeadowChat
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"{DateTime.Now:HH:mm:ss.fff}-{text}");
                 statusTextBox.AppendText(sb.ToString());
+            }
+        }
+
+        //=====================================================
+        // Generate Random Message, both length and data.
+        private void genRandomMsgCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if(genRandomMsgCheckBox.Checked)
+            {
+                useRandomMsg = true;
+            }
+            else
+            {
+                useRandomMsg = false;
             }
         }
     }

@@ -1,9 +1,12 @@
-﻿using System;
+﻿using MeadowChat;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace MeadowChat
 {
@@ -12,11 +15,78 @@ namespace MeadowChat
         private int numbSent = 0;
         private ChatManager chatManager;
         private MeadowEthChatUi meadowChatUi;
+        int _sendCount;
+        string _textToSend;
+        Random rand;
+        Thread sendThread;
+        private Stopwatch _stopwatch = new Stopwatch();
 
         public ChatSend(ChatManager chatManager, MeadowEthChatUi meadowChatUi)
         {
             this.chatManager = chatManager;
             this.meadowChatUi = meadowChatUi;
+
+            rand = new Random();
+        }
+
+        // So the UI thread can return to doing UI work a thread is
+        // created here to send the message(s)
+        internal void PrepareAndSend(int sendCount, string textToSend)
+        {
+            _sendCount = sendCount;
+            _textToSend = textToSend;
+
+            sendThread = new Thread(new ThreadStart(ThreadToSend));
+            sendThread.Start();
+        }
+        
+        // This thread sends the data 
+        internal void ThreadToSend()
+        {
+            byte[] completeMsg;
+
+            _stopwatch.Restart();
+            for (int sendId = 0; sendId < _sendCount; sendId++)
+            {
+                if (meadowChatUi.useRandomMsg)
+                {
+                    // Create random length buffer with random data
+                    int randLength = rand.Next(1, 2048);
+                    meadowChatUi.sentDataBuffer = new byte[randLength];
+                    rand.NextBytes(meadowChatUi.sentDataBuffer);
+
+                    // Must prevent '0' from being in the buffer
+                    for (int zeroOffChk = 0; zeroOffChk < randLength; zeroOffChk++)
+                    {
+                        if (meadowChatUi.sentDataBuffer[zeroOffChk] == 0)
+                            meadowChatUi.sentDataBuffer[zeroOffChk] = (byte)rand.Next(1, 255);
+                    }
+                }
+                else
+                {
+                    meadowChatUi.sentDataBuffer = Encoding.UTF8.GetBytes(_textToSend);
+                }
+
+                // Create a buffer for the complete message accounting for terminating byte
+                completeMsg = new byte[meadowChatUi.sentDataBuffer.Length + 1];
+
+                // Copy the message to the head of the buffer
+                Array.Copy(meadowChatUi.sentDataBuffer, 0, completeMsg, 0, meadowChatUi.sentDataBuffer.Length);
+
+                // Separate each packet with a '0' because the receiver often combines
+                // messages in it's receive buffer.
+                completeMsg[meadowChatUi.sentDataBuffer.Length] = 0;
+
+                //Debug.WriteLine($"Sending message {sendId + 1}");
+                _ = SendMsgData(completeMsg, completeMsg.Length);
+
+                // Wait until receive has finished verifying the last message sent
+                //Debug.WriteLine($"Waiting to be notified it's okay to send next message.");
+                chatManager.sendMoreDataEvent.WaitOne();
+            }
+
+            _stopwatch.Stop();
+            meadowChatUi.WriteTotalExecTimeSafe($"{_stopwatch.Elapsed:hh\\:mm\\:ss\\.fff}");
         }
 
         public async Task SendMsgData(byte[] dataToSend, int dataLength)
@@ -28,12 +98,16 @@ namespace MeadowChat
 
                 if (chatManager.ChatStream.CanWrite)
                 {
-                    meadowChatUi.WriteStatusSafe($"Sending {dataLength} bytes");
+                    numbSent++;
+                    //if(meadowChatUi.useRandomMsg)
+                    //    meadowChatUi.WriteStatusSafe($"{numbSent} - Sending {dataLength} random bytes");
+                    //else
+                    //    meadowChatUi.WriteStatusSafe($"{numbSent} - Sending {dataLength} bytes of text");
+
+                    // Send data
                     await chatManager.ChatStream.WriteAsync(dataToSend, 0, dataLength).ConfigureAwait(false);
 
-                    numbSent++;
                     meadowChatUi.WriteSendCountSafe(numbSent.ToString());
-                    //meadowChatUi.ClearToSendSafe("");
                 }
                 else
                 {
@@ -46,5 +120,11 @@ namespace MeadowChat
             }
         }
 
+        //==================================================================
+        // Send button pressed. Clear existing information.
+        internal void ClearPreSend()
+        {
+            numbSent = 0;
+        }
     }
 }
