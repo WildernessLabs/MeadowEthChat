@@ -80,6 +80,11 @@ namespace MeadowChat
                 //Debug.WriteLine($"Sending message {sendId + 1}");
                 _ = SendMsgData(completeMsg, completeMsg.Length);
 
+                if((sendId % 100) == 0)
+                {
+                    meadowChatUi.WriteTotalExecTimeSafe($"{_stopwatch.Elapsed:hh\\:mm\\:ss\\.fff}");
+                }
+
                 // Wait until receive has finished verifying the last message sent
                 //Debug.WriteLine($"Waiting to be notified it's okay to send next message.");
                 chatManager.sendMoreDataEvent.WaitOne();

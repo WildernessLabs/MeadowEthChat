@@ -29,336 +29,371 @@ namespace MeadowChat
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.meadowIpTextbox = new System.Windows.Forms.TextBox();
-            this.sendTextBox = new System.Windows.Forms.TextBox();
-            this.recvTextBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.sendButton = new System.Windows.Forms.Button();
-            this.sendCntTextBox = new System.Windows.Forms.TextBox();
-            this.recvCntTextBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.connectButton = new System.Windows.Forms.Button();
-            this.ipPortTextBox = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.statusTextBox = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.sendCountTextbox = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.genRandomMsgCheckBox = new System.Windows.Forms.CheckBox();
-            this.matchCntTextBox = new System.Windows.Forms.TextBox();
-            this.mismatchCntTextBox = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.totalExecTimeTextBox = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            label1 = new Label();
+            meadowIpTextbox = new TextBox();
+            sendTextBox = new TextBox();
+            recvTextBox = new TextBox();
+            label2 = new Label();
+            label3 = new Label();
+            sendButton = new Button();
+            sendCntTextBox = new TextBox();
+            recvCntTextBox = new TextBox();
+            label4 = new Label();
+            label5 = new Label();
+            connectButton = new Button();
+            ipPortTextBox = new TextBox();
+            label6 = new Label();
+            statusTextBox = new TextBox();
+            label7 = new Label();
+            sendCountTextbox = new TextBox();
+            label9 = new Label();
+            genRandomMsgCheckBox = new CheckBox();
+            matchCntTextBox = new TextBox();
+            mismatchCntTextBox = new TextBox();
+            label8 = new Label();
+            label10 = new Label();
+            totalExecTimeTextBox = new TextBox();
+            label11 = new Label();
+            label12 = new Label();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(167, 41);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Meadow IP";
+            label1.AutoSize = true;
+            label1.Location = new Point(1, 16);
+            label1.Margin = new Padding(1, 0, 1, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(83, 20);
+            label1.TabIndex = 0;
+            label1.Text = "Meadow IP";
             // 
             // meadowIpTextbox
             // 
-            this.meadowIpTextbox.Location = new System.Drawing.Point(12, 77);
-            this.meadowIpTextbox.Name = "meadowIpTextbox";
-            this.meadowIpTextbox.Size = new System.Drawing.Size(236, 47);
-            this.meadowIpTextbox.TabIndex = 1;
-            this.meadowIpTextbox.Text = "192.168.2.201";
-            this.meadowIpTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            meadowIpTextbox.Location = new Point(6, 38);
+            meadowIpTextbox.Margin = new Padding(1);
+            meadowIpTextbox.Name = "meadowIpTextbox";
+            meadowIpTextbox.Size = new Size(113, 27);
+            meadowIpTextbox.TabIndex = 1;
+            meadowIpTextbox.Text = "192.168.51.6";
+            meadowIpTextbox.TextAlign = HorizontalAlignment.Right;
             // 
             // sendTextBox
             // 
-            this.sendTextBox.AcceptsReturn = true;
-            this.sendTextBox.Location = new System.Drawing.Point(12, 203);
-            this.sendTextBox.Multiline = true;
-            this.sendTextBox.Name = "sendTextBox";
-            this.sendTextBox.Size = new System.Drawing.Size(1293, 57);
-            this.sendTextBox.TabIndex = 4;
-            this.sendTextBox.Text = "This is a message to send. 0123456789";
+            sendTextBox.AcceptsReturn = true;
+            sendTextBox.Location = new Point(6, 99);
+            sendTextBox.Margin = new Padding(1);
+            sendTextBox.Multiline = true;
+            sendTextBox.Name = "sendTextBox";
+            sendTextBox.Size = new Size(611, 30);
+            sendTextBox.TabIndex = 4;
+            sendTextBox.Text = "This is a message to send. 0123456789";
             // 
             // recvTextBox
             // 
-            this.recvTextBox.AcceptsReturn = true;
-            this.recvTextBox.Location = new System.Drawing.Point(30, 470);
-            this.recvTextBox.Multiline = true;
-            this.recvTextBox.Name = "recvTextBox";
-            this.recvTextBox.ReadOnly = true;
-            this.recvTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.recvTextBox.Size = new System.Drawing.Size(1275, 315);
-            this.recvTextBox.TabIndex = 5;
+            recvTextBox.AcceptsReturn = true;
+            recvTextBox.Location = new Point(14, 229);
+            recvTextBox.Margin = new Padding(1);
+            recvTextBox.Multiline = true;
+            recvTextBox.Name = "recvTextBox";
+            recvTextBox.ReadOnly = true;
+            recvTextBox.ScrollBars = ScrollBars.Vertical;
+            recvTextBox.Size = new Size(602, 156);
+            recvTextBox.TabIndex = 5;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 159);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(185, 41);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Text To Send";
+            label2.AutoSize = true;
+            label2.Location = new Point(6, 78);
+            label2.Margin = new Padding(1, 0, 1, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(93, 20);
+            label2.TabIndex = 0;
+            label2.Text = "Text To Send";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 417);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(275, 41);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Received Messages";
+            label3.AutoSize = true;
+            label3.Location = new Point(5, 203);
+            label3.Margin = new Padding(1, 0, 1, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(137, 20);
+            label3.TabIndex = 0;
+            label3.Text = "Received Messages";
             // 
             // sendButton
             // 
-            this.sendButton.Location = new System.Drawing.Point(199, 332);
-            this.sendButton.Name = "sendButton";
-            this.sendButton.Size = new System.Drawing.Size(133, 53);
-            this.sendButton.TabIndex = 6;
-            this.sendButton.Text = "Start";
-            this.sendButton.UseVisualStyleBackColor = true;
-            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
+            sendButton.Location = new Point(103, 165);
+            sendButton.Margin = new Padding(1);
+            sendButton.Name = "sendButton";
+            sendButton.Size = new Size(63, 37);
+            sendButton.TabIndex = 6;
+            sendButton.Text = "Start";
+            sendButton.UseVisualStyleBackColor = true;
+            sendButton.Click += sendButton_Click;
             // 
             // sendCntTextBox
             // 
-            this.sendCntTextBox.Location = new System.Drawing.Point(579, 329);
-            this.sendCntTextBox.Name = "sendCntTextBox";
-            this.sendCntTextBox.ReadOnly = true;
-            this.sendCntTextBox.Size = new System.Drawing.Size(130, 47);
-            this.sendCntTextBox.TabIndex = 7;
-            this.sendCntTextBox.Text = "0";
-            this.sendCntTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            sendCntTextBox.Location = new Point(260, 160);
+            sendCntTextBox.Margin = new Padding(1);
+            sendCntTextBox.Name = "sendCntTextBox";
+            sendCntTextBox.ReadOnly = true;
+            sendCntTextBox.Size = new Size(75, 27);
+            sendCntTextBox.TabIndex = 7;
+            sendCntTextBox.Text = "0";
+            sendCntTextBox.TextAlign = HorizontalAlignment.Right;
             // 
             // recvCntTextBox
             // 
-            this.recvCntTextBox.Location = new System.Drawing.Point(415, 329);
-            this.recvCntTextBox.Name = "recvCntTextBox";
-            this.recvCntTextBox.ReadOnly = true;
-            this.recvCntTextBox.Size = new System.Drawing.Size(130, 47);
-            this.recvCntTextBox.TabIndex = 8;
-            this.recvCntTextBox.Text = "0";
-            this.recvCntTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            recvCntTextBox.Location = new Point(192, 160);
+            recvCntTextBox.Margin = new Padding(1);
+            recvCntTextBox.Name = "recvCntTextBox";
+            recvCntTextBox.ReadOnly = true;
+            recvCntTextBox.Size = new Size(66, 27);
+            recvCntTextBox.TabIndex = 8;
+            recvCntTextBox.Text = "0";
+            recvCntTextBox.TextAlign = HorizontalAlignment.Right;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(408, 285);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(162, 41);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "# Received";
+            label4.AutoSize = true;
+            label4.Location = new Point(192, 139);
+            label4.Margin = new Padding(1, 0, 1, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(82, 20);
+            label4.TabIndex = 0;
+            label4.Text = "# Received";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(579, 285);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(103, 41);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "# Sent";
+            label5.AutoSize = true;
+            label5.Location = new Point(272, 139);
+            label5.Margin = new Padding(1, 0, 1, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(51, 20);
+            label5.TabIndex = 0;
+            label5.Text = "# Sent";
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(486, 77);
-            this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(178, 54);
-            this.connectButton.TabIndex = 9;
-            this.connectButton.Text = "Connect";
-            this.connectButton.UseVisualStyleBackColor = true;
-            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
+            connectButton.Location = new Point(229, 31);
+            connectButton.Margin = new Padding(1);
+            connectButton.Name = "connectButton";
+            connectButton.Size = new Size(84, 33);
+            connectButton.TabIndex = 9;
+            connectButton.Text = "Connect";
+            connectButton.UseVisualStyleBackColor = true;
+            connectButton.Click += connectButton_Click;
             // 
             // ipPortTextBox
             // 
-            this.ipPortTextBox.Location = new System.Drawing.Point(265, 77);
-            this.ipPortTextBox.Name = "ipPortTextBox";
-            this.ipPortTextBox.Size = new System.Drawing.Size(183, 47);
-            this.ipPortTextBox.TabIndex = 1;
-            this.ipPortTextBox.Text = "65123";
-            this.ipPortTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            ipPortTextBox.Location = new Point(125, 38);
+            ipPortTextBox.Margin = new Padding(1);
+            ipPortTextBox.Name = "ipPortTextBox";
+            ipPortTextBox.Size = new Size(88, 27);
+            ipPortTextBox.TabIndex = 1;
+            ipPortTextBox.Text = "65123";
+            ipPortTextBox.TextAlign = HorizontalAlignment.Right;
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(265, 33);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(196, 41);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Meadow Port";
+            label6.AutoSize = true;
+            label6.Location = new Point(125, 16);
+            label6.Margin = new Padding(1, 0, 1, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(97, 20);
+            label6.TabIndex = 0;
+            label6.Text = "Meadow Port";
             // 
             // statusTextBox
             // 
-            this.statusTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.statusTextBox.Location = new System.Drawing.Point(30, 872);
-            this.statusTextBox.Multiline = true;
-            this.statusTextBox.Name = "statusTextBox";
-            this.statusTextBox.ReadOnly = true;
-            this.statusTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.statusTextBox.Size = new System.Drawing.Size(1275, 262);
-            this.statusTextBox.TabIndex = 10;
+            statusTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            statusTextBox.Location = new Point(14, 425);
+            statusTextBox.Margin = new Padding(1);
+            statusTextBox.Multiline = true;
+            statusTextBox.Name = "statusTextBox";
+            statusTextBox.ReadOnly = true;
+            statusTextBox.ScrollBars = ScrollBars.Vertical;
+            statusTextBox.Size = new Size(602, 73);
+            statusTextBox.TabIndex = 10;
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(30, 816);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(98, 41);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Status";
+            label7.AutoSize = true;
+            label7.Location = new Point(14, 398);
+            label7.Margin = new Padding(1, 0, 1, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(49, 20);
+            label7.TabIndex = 0;
+            label7.Text = "Status";
             // 
             // sendCountTextbox
             // 
-            this.sendCountTextbox.Location = new System.Drawing.Point(199, 279);
-            this.sendCountTextbox.Name = "sendCountTextbox";
-            this.sendCountTextbox.Size = new System.Drawing.Size(133, 47);
-            this.sendCountTextbox.TabIndex = 12;
-            this.sendCountTextbox.Text = "1";
-            this.sendCountTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            sendCountTextbox.Location = new Point(94, 136);
+            sendCountTextbox.Margin = new Padding(1);
+            sendCountTextbox.Name = "sendCountTextbox";
+            sendCountTextbox.Size = new Size(82, 27);
+            sendCountTextbox.TabIndex = 12;
+            sendCountTextbox.Text = "1";
+            sendCountTextbox.TextAlign = HorizontalAlignment.Right;
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 279);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(174, 41);
-            this.label9.TabIndex = 13;
-            this.label9.Text = "Send Count";
+            label9.AutoSize = true;
+            label9.Location = new Point(6, 136);
+            label9.Margin = new Padding(1, 0, 1, 0);
+            label9.Name = "label9";
+            label9.Size = new Size(85, 20);
+            label9.TabIndex = 13;
+            label9.Text = "Send Count";
             // 
             // genRandomMsgCheckBox
             // 
-            this.genRandomMsgCheckBox.AutoSize = true;
-            this.genRandomMsgCheckBox.Location = new System.Drawing.Point(324, 155);
-            this.genRandomMsgCheckBox.Name = "genRandomMsgCheckBox";
-            this.genRandomMsgCheckBox.Size = new System.Drawing.Size(297, 45);
-            this.genRandomMsgCheckBox.TabIndex = 14;
-            this.genRandomMsgCheckBox.Text = "Generate Random";
-            this.genRandomMsgCheckBox.UseVisualStyleBackColor = true;
-            this.genRandomMsgCheckBox.CheckedChanged += new System.EventHandler(this.genRandomMsgCheckBox_CheckedChanged);
+            genRandomMsgCheckBox.AutoSize = true;
+            genRandomMsgCheckBox.Location = new Point(152, 76);
+            genRandomMsgCheckBox.Margin = new Padding(1);
+            genRandomMsgCheckBox.Name = "genRandomMsgCheckBox";
+            genRandomMsgCheckBox.Size = new Size(151, 24);
+            genRandomMsgCheckBox.TabIndex = 14;
+            genRandomMsgCheckBox.Text = "Generate Random";
+            genRandomMsgCheckBox.UseVisualStyleBackColor = true;
+            genRandomMsgCheckBox.CheckedChanged += genRandomMsgCheckBox_CheckedChanged;
             // 
             // matchCntTextBox
             // 
-            this.matchCntTextBox.Location = new System.Drawing.Point(736, 329);
-            this.matchCntTextBox.Name = "matchCntTextBox";
-            this.matchCntTextBox.ReadOnly = true;
-            this.matchCntTextBox.Size = new System.Drawing.Size(130, 47);
-            this.matchCntTextBox.TabIndex = 7;
-            this.matchCntTextBox.Text = "0";
-            this.matchCntTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            matchCntTextBox.Location = new Point(337, 160);
+            matchCntTextBox.Margin = new Padding(1);
+            matchCntTextBox.Name = "matchCntTextBox";
+            matchCntTextBox.ReadOnly = true;
+            matchCntTextBox.Size = new Size(72, 27);
+            matchCntTextBox.TabIndex = 7;
+            matchCntTextBox.Text = "0";
+            matchCntTextBox.TextAlign = HorizontalAlignment.Right;
             // 
             // mismatchCntTextBox
             // 
-            this.mismatchCntTextBox.Location = new System.Drawing.Point(917, 329);
-            this.mismatchCntTextBox.Name = "mismatchCntTextBox";
-            this.mismatchCntTextBox.ReadOnly = true;
-            this.mismatchCntTextBox.Size = new System.Drawing.Size(130, 47);
-            this.mismatchCntTextBox.TabIndex = 7;
-            this.mismatchCntTextBox.Text = "0";
-            this.mismatchCntTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            mismatchCntTextBox.Location = new Point(432, 160);
+            mismatchCntTextBox.Margin = new Padding(1);
+            mismatchCntTextBox.Name = "mismatchCntTextBox";
+            mismatchCntTextBox.ReadOnly = true;
+            mismatchCntTextBox.Size = new Size(63, 27);
+            mismatchCntTextBox.TabIndex = 7;
+            mismatchCntTextBox.Text = "0";
+            mismatchCntTextBox.TextAlign = HorizontalAlignment.Right;
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(716, 279);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(147, 41);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "# Success";
+            label8.AutoSize = true;
+            label8.Location = new Point(337, 136);
+            label8.Margin = new Padding(1, 0, 1, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(72, 20);
+            label8.TabIndex = 0;
+            label8.Text = "# Success";
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(933, 279);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(120, 41);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "# Errors";
+            label10.AutoSize = true;
+            label10.Location = new Point(439, 136);
+            label10.Margin = new Padding(1, 0, 1, 0);
+            label10.Name = "label10";
+            label10.Size = new Size(60, 20);
+            label10.TabIndex = 0;
+            label10.Text = "# Errors";
             // 
             // totalExecTimeTextBox
             // 
-            this.totalExecTimeTextBox.Location = new System.Drawing.Point(1107, 332);
-            this.totalExecTimeTextBox.Name = "totalExecTimeTextBox";
-            this.totalExecTimeTextBox.ReadOnly = true;
-            this.totalExecTimeTextBox.Size = new System.Drawing.Size(198, 47);
-            this.totalExecTimeTextBox.TabIndex = 7;
-            this.totalExecTimeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            totalExecTimeTextBox.Location = new Point(516, 162);
+            totalExecTimeTextBox.Margin = new Padding(1);
+            totalExecTimeTextBox.Name = "totalExecTimeTextBox";
+            totalExecTimeTextBox.ReadOnly = true;
+            totalExecTimeTextBox.Size = new Size(100, 27);
+            totalExecTimeTextBox.TabIndex = 7;
+            totalExecTimeTextBox.TextAlign = HorizontalAlignment.Right;
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(1152, 279);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(83, 41);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Time";
+            label11.AutoSize = true;
+            label11.Location = new Point(542, 136);
+            label11.Margin = new Padding(1, 0, 1, 0);
+            label11.Name = "label11";
+            label11.Size = new Size(42, 20);
+            label11.TabIndex = 0;
+            label11.Text = "Time";
+            // 
+            // label12
+            // 
+            label12.Location = new Point(337, 31);
+            label12.Name = "label12";
+            label12.Size = new Size(247, 45);
+            label12.TabIndex = 15;
+            label12.Text = "To start the Meadow chat server use developer -d 5 -v 0\r\n";
             // 
             // MeadowEthChatUi
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1334, 1170);
-            this.Controls.Add(this.genRandomMsgCheckBox);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.sendCountTextbox);
-            this.Controls.Add(this.statusTextBox);
-            this.Controls.Add(this.connectButton);
-            this.Controls.Add(this.recvCntTextBox);
-            this.Controls.Add(this.totalExecTimeTextBox);
-            this.Controls.Add(this.mismatchCntTextBox);
-            this.Controls.Add(this.matchCntTextBox);
-            this.Controls.Add(this.sendCntTextBox);
-            this.Controls.Add(this.sendButton);
-            this.Controls.Add(this.recvTextBox);
-            this.Controls.Add(this.sendTextBox);
-            this.Controls.Add(this.ipPortTextBox);
-            this.Controls.Add(this.meadowIpTextbox);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label1);
-            this.Name = "MeadowEthChatUi";
-            this.Text = "Meadow Chat";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(628, 515);
+            Controls.Add(label12);
+            Controls.Add(genRandomMsgCheckBox);
+            Controls.Add(label9);
+            Controls.Add(sendCountTextbox);
+            Controls.Add(statusTextBox);
+            Controls.Add(connectButton);
+            Controls.Add(recvCntTextBox);
+            Controls.Add(totalExecTimeTextBox);
+            Controls.Add(mismatchCntTextBox);
+            Controls.Add(matchCntTextBox);
+            Controls.Add(sendCntTextBox);
+            Controls.Add(sendButton);
+            Controls.Add(recvTextBox);
+            Controls.Add(sendTextBox);
+            Controls.Add(ipPortTextBox);
+            Controls.Add(meadowIpTextbox);
+            Controls.Add(label7);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label11);
+            Controls.Add(label10);
+            Controls.Add(label8);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label6);
+            Controls.Add(label1);
+            Margin = new Padding(1);
+            Name = "MeadowEthChatUi";
+            Text = "Meadow Chat";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox meadowIpTextbox;
-        private System.Windows.Forms.TextBox sendTextBox;
-        private System.Windows.Forms.TextBox recvTextBox;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button sendButton;
-        private System.Windows.Forms.TextBox sendCntTextBox;
-        private System.Windows.Forms.TextBox recvCntTextBox;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button connectButton;
-        private System.Windows.Forms.TextBox ipPortTextBox;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox statusTextBox;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox sendCountTextbox;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.CheckBox genRandomMsgCheckBox;
-        private System.Windows.Forms.TextBox matchCntTextBox;
-        private System.Windows.Forms.TextBox mismatchCntTextBox;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox totalExecTimeTextBox;
-        private System.Windows.Forms.Label label11;
+        private Label label1;
+        private TextBox meadowIpTextbox;
+        private TextBox sendTextBox;
+        private TextBox recvTextBox;
+        private Label label2;
+        private Label label3;
+        private Button sendButton;
+        private TextBox sendCntTextBox;
+        private TextBox recvCntTextBox;
+        private Label label4;
+        private Label label5;
+        private Button connectButton;
+        private TextBox ipPortTextBox;
+        private Label label6;
+        private TextBox statusTextBox;
+        private Label label7;
+        private TextBox sendCountTextbox;
+        private Label label9;
+        private CheckBox genRandomMsgCheckBox;
+        private TextBox matchCntTextBox;
+        private TextBox mismatchCntTextBox;
+        private Label label8;
+        private Label label10;
+        private TextBox totalExecTimeTextBox;
+        private Label label11;
+        private Label label12;
     }
 }
 

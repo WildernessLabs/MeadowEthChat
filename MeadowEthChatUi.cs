@@ -197,7 +197,7 @@ namespace MeadowChat
         // Generate Random Message, both length and data.
         private void genRandomMsgCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if(genRandomMsgCheckBox.Checked)
+            if (genRandomMsgCheckBox.Checked)
             {
                 useRandomMsg = true;
             }
