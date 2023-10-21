@@ -3,7 +3,7 @@
 In the Meadow.OS code
 1. Include the Echo Server in the Meadow.OS build (see hcom_shared_common.h).
 2. Build and flash OS.
-3. Use CLI to sent a 'developer 2' command with any value. This put the Echo Server thread in a forever loop (preventing CLI commands from read).
+3. Use CLI to sent a 'developer -d 5 -v 0'. This put the Echo Server thread in a forever loop (preventing CLI commands from read).
 
 To use this Ethernet Chat application
 1. Build the code.
