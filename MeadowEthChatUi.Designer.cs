@@ -321,7 +321,7 @@ namespace MeadowChat
             label11.Text = "Time";
             // 
             // label12
-            // 
+            //
             label12.Location = new Point(337, 31);
             label12.Name = "label12";
             label12.Size = new Size(247, 45);
