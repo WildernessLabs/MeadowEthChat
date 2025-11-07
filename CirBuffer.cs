@@ -26,7 +26,7 @@ namespace MeadowChat
 
     public class CircularBuffer
     {
-        byte[] hcomCircularBuffer;
+        byte[]? hcomCircularBuffer;
 
         int bottom;  // bottom of buffer
         int top;     // top end of buffer
@@ -72,6 +72,11 @@ namespace MeadowChat
 
                 int newHead = head + bytesToAdd;
 
+                if(hcomCircularBuffer == null)
+                {
+                    throw new Exception("hcomCircularBuffer is null");
+                }
+
                 if (newHead < top)
                 {
                     // Simple case (no wrap around)
@@ -111,6 +116,10 @@ namespace MeadowChat
                 // Scan the buffer looking for the delimiter 0x00
                 if (head > tail)
                 {
+                    if (hcomCircularBuffer == null)
+                    {
+                        throw new Exception("hcomCircularBuffer is null");
+                    }
                     // Simple case (no wrap around)
                     foundOffset = Array.IndexOf(hcomCircularBuffer, (byte)0x00, tail, head - tail);
 
@@ -119,6 +128,10 @@ namespace MeadowChat
                 }
                 else
                 {
+                    if (hcomCircularBuffer == null)
+                    {
+                        throw new Exception("hcomCircularBuffer is null");
+                    }
                     foundOffset = Array.IndexOf(hcomCircularBuffer, (byte)0x00, tail, top - tail);
                 }
 

@@ -10,22 +10,20 @@ namespace MeadowChat
 {
     class ChatManager
     {
-        TcpClient tcpClient;
         ChatRecv _chatRecv;
         ChatSend _chatSend;
         CircularBuffer _chatCirBuf;
         readonly int chatPort;
         readonly IPAddress chatIpAddress;
-        NetworkStream chatStream;
         MeadowEthChatUi meadowChatUi;
 
         internal AutoResetEvent sendMoreDataEvent = new AutoResetEvent(false);
 
-        public TcpClient TcpClient { get => tcpClient; set => tcpClient = value; }
+        public TcpClient? TcpClient { get; set; }
         internal ChatRecv ChatRecv { get => _chatRecv; set => _chatRecv = value; }
         internal ChatSend ChatSend { get => _chatSend; set => _chatSend = value; }
         internal CircularBuffer ChatCirBuf { get => _chatCirBuf; set => _chatCirBuf = value; }
-        public NetworkStream ChatStream { get => chatStream; set => chatStream = value; }
+        public NetworkStream? ChatStream { get; set; }
 
         // Ctor
         public ChatManager(MeadowEthChatUi meadowChatUi)
@@ -35,8 +33,7 @@ namespace MeadowChat
             chatPort = int.Parse(this.meadowChatUi.ReadMessagePort());
             chatIpAddress = IPAddress.Parse(this.meadowChatUi.ReadMeadowIp());
 
-            tcpClient = new TcpClient(AddressFamily.InterNetwork);
-
+            TcpClient = new TcpClient(AddressFamily.InterNetwork);
             _chatRecv = new ChatRecv(this, this.meadowChatUi);
             _chatSend = new ChatSend(this, this.meadowChatUi);
             _chatCirBuf = new CircularBuffer();
@@ -52,21 +49,27 @@ namespace MeadowChat
             {
                 try
                 {
-                    if (!tcpClient.Connected)
+                    if(TcpClient == null)
                     {
-                        await tcpClient.ConnectAsync(chatIpAddress, chatPort).ConfigureAwait(false);
+                        throw new Exception("TcpClient is null");
+                    }
+
+                    if (!TcpClient.Connected)
+                    {
+                        await TcpClient.ConnectAsync(chatIpAddress, chatPort).ConfigureAwait(false);
 
                         // Get and save the stream
-                        chatStream = tcpClient.GetStream();
+                        ChatStream = TcpClient.GetStream();
                         meadowChatUi.WriteStatusSafe($"Connection made to server");
                     }
                     else
                     {
                         Thread.Sleep(0);    // place for break point
+                        throw new Exception("Not connected");
                     }
 
                     // Start receiving forever
-                    await Task.Run(() => ChatRecv.ReceiveChatData(chatStream)).ConfigureAwait(false);
+                    await Task.Run(() => ChatRecv.ReceiveChatData(ChatStream)).ConfigureAwait(false);
                 }
                 catch (SocketException sockex)
                 {
@@ -74,8 +77,11 @@ namespace MeadowChat
                     {
                         meadowChatUi.WriteStatusSafe($"SocketException:IsConnected {Environment.NewLine}");
                         meadowChatUi.WriteStatusSafe($"SocketException:{sockex} {Environment.NewLine}");
-                        tcpClient.Close();
-                        tcpClient = null;
+                        if(TcpClient != null)
+                        {
+                            TcpClient.Close();
+                            TcpClient = null;
+                        }
                     }
                     else if (sockex.SocketErrorCode == SocketError.ConnectionRefused)
                     {

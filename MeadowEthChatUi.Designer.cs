@@ -74,7 +74,7 @@ namespace MeadowChat
             meadowIpTextbox.Name = "meadowIpTextbox";
             meadowIpTextbox.Size = new Size(113, 27);
             meadowIpTextbox.TabIndex = 1;
-            meadowIpTextbox.Text = "192.168.51.6";
+            meadowIpTextbox.Text = "192.168.51.125";
             meadowIpTextbox.TextAlign = HorizontalAlignment.Right;
             // 
             // sendTextBox
@@ -127,7 +127,7 @@ namespace MeadowChat
             sendButton.Name = "sendButton";
             sendButton.Size = new Size(63, 37);
             sendButton.TabIndex = 6;
-            sendButton.Text = "Start";
+            sendButton.Text = "Send";
             sendButton.UseVisualStyleBackColor = true;
             sendButton.Click += sendButton_Click;
             // 
@@ -321,7 +321,7 @@ namespace MeadowChat
             label11.Text = "Time";
             // 
             // label12
-            //
+            // 
             label12.Location = new Point(337, 31);
             label12.Name = "label12";
             label12.Size = new Size(247, 45);

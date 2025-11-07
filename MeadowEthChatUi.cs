@@ -17,7 +17,7 @@ namespace MeadowChat
 
         ChatManager chatManager;
         internal bool useRandomMsg;
-        internal byte[] sentDataBuffer;     // shared by xmit and recv
+        internal byte[]? sentDataBuffer;     // shared by xmit and recv
 
         public MeadowEthChatUi()
         {

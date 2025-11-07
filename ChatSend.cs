@@ -16,9 +16,9 @@ namespace MeadowChat
         private ChatManager chatManager;
         private MeadowEthChatUi meadowChatUi;
         int _sendCount;
-        string _textToSend;
+        string? _textToSend;
         Random rand;
-        Thread sendThread;
+        Thread? _sendThread;
         private Stopwatch _stopwatch = new Stopwatch();
 
         public ChatSend(ChatManager chatManager, MeadowEthChatUi meadowChatUi)
@@ -34,10 +34,18 @@ namespace MeadowChat
         internal void PrepareAndSend(int sendCount, string textToSend)
         {
             _sendCount = sendCount;
-            _textToSend = textToSend;
 
-            sendThread = new Thread(new ThreadStart(ThreadToSend));
-            sendThread.Start();
+            if(textToSend != null)
+            {
+                _textToSend = textToSend;
+
+                _sendThread = new Thread(new ThreadStart(ThreadToSend));
+                _sendThread.Start();
+            }
+            else
+            {
+                meadowChatUi.WriteStatusSafe($"No text provided");
+            }
         }
         
         // This thread sends the data 
@@ -64,6 +72,10 @@ namespace MeadowChat
                 }
                 else
                 {
+                    if(_textToSend == null)
+                    {
+                        throw new Exception("_textToSend is null");
+                    }
                     meadowChatUi.sentDataBuffer = Encoding.UTF8.GetBytes(_textToSend);
                 }
 
@@ -77,7 +89,7 @@ namespace MeadowChat
                 // messages in it's receive buffer.
                 completeMsg[meadowChatUi.sentDataBuffer.Length] = 0;
 
-                //Debug.WriteLine($"Sending message {sendId + 1}");
+                Debug.WriteLine($"Sending message {sendId + 1}");
                 _ = SendMsgData(completeMsg, completeMsg.Length);
 
                 if((sendId % 100) == 0)
@@ -101,13 +113,16 @@ namespace MeadowChat
                 if (dataToSend == null || dataLength == 0)
                     return;
 
+                if (chatManager.ChatStream == null)
+                    return;
+                
                 if (chatManager.ChatStream.CanWrite)
                 {
                     numbSent++;
-                    //if(meadowChatUi.useRandomMsg)
-                    //    meadowChatUi.WriteStatusSafe($"{numbSent} - Sending {dataLength} random bytes");
-                    //else
-                    //    meadowChatUi.WriteStatusSafe($"{numbSent} - Sending {dataLength} bytes of text");
+                    if (meadowChatUi.useRandomMsg)
+                        meadowChatUi.WriteStatusSafe($"{numbSent} - Sending {dataLength} random bytes");
+                    else
+                        meadowChatUi.WriteStatusSafe($"{numbSent} - Sending {dataLength} bytes of text");
 
                     // Send data
                     await chatManager.ChatStream.WriteAsync(dataToSend, 0, dataLength).ConfigureAwait(false);

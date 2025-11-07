@@ -14,7 +14,7 @@ namespace MeadowChat
     {
         private MeadowEthChatUi meadowChatUi;
         private ChatManager chatManager;
-        TcpClient tcpClient;
+        //TcpClient? _tcpClient;
         int _totalRecvMsg = 0;
         int _totalMismatch = 0;
         int _totalMatch = 0;
@@ -26,7 +26,7 @@ namespace MeadowChat
             this.chatManager = chatManager;
             this.meadowChatUi = meadowChatUi;
 
-            tcpClient = chatManager.TcpClient;
+            //_tcpClient = chatManager.TcpClient;
         }
 
         //===========================================================
@@ -41,12 +41,12 @@ namespace MeadowChat
                 meadowChatUi.WriteStatusSafe($"Beginning receive");
                 while (keepRunning)
                 {
-                    //Debug.WriteLine($"Reading data from Ethernet");
+                    Debug.WriteLine($"Wait for data from Ethernet");
                     int bytesRead = await netStream.ReadAsync(recvBuffer, 0, recvBuffer.Length).ConfigureAwait(false);
                     if (bytesRead > 0)
                     {
                         // Add the received bytes to the buffer and verify it
-                        //Debug.WriteLine($"Read {bytesRead} bytes, calling Add and process data.");
+                        Debug.WriteLine($"Read {bytesRead} bytes. Calling AddAndProcessData().");
                         AddAndProcessData(recvBuffer, bytesRead);
                     }
                     else if(bytesRead == 0)
@@ -129,11 +129,18 @@ namespace MeadowChat
             int packetLength;
             HcomBufferReturn result;
 
+            if(meadowChatUi.sentDataBuffer == null)
+            {
+                throw new Exception("sentDataBuffer null");
+            }
+
+            //meadowChatUi.WriteStatusSafe($"Attempt to pull from ChatCirBuf");
+
             // This includes to 0x00 terminator
             result = chatManager.ChatCirBuf.GetNextPacket(packetBuffer, 2048, out packetLength);
             if (result == HcomBufferReturn.CIR_BUF_GET_FOUND_MSG)
             {
-                packetLength--;         // Effectively remove the 0x00 terminator
+                packetLength--;         // Remove the 0x00 terminating delimiter
 
                 // Compare length but received will have 1 more byte, the terminator
                 if (meadowChatUi.sentDataBuffer.Length != packetLength)
@@ -161,7 +168,7 @@ namespace MeadowChat
                     {
                         _totalMatch++;
                         meadowChatUi.WriteMatchCountSafe(_totalMatch.ToString());
-                        //meadowChatUi.WriteReceiveSafe($"Recv'd matched sent {_totalMatch} times");
+                        meadowChatUi.WriteReceiveSafe($"Recv'd matched sent {_totalMatch} times");
                     }
                     else
                     {
@@ -179,6 +186,7 @@ namespace MeadowChat
             }
             else if (result == HcomBufferReturn.CIR_BUF_GET_NONE_FOUND)
             {
+                meadowChatUi.WriteStatusSafe($"ChatCirBuf is empty");
                 return result;      // We've emptied buffer of all messages
             }
             else if (result == HcomBufferReturn.CIR_BUF_GET_BUF_NO_ROOM)
